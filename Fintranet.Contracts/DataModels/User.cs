@@ -17,6 +17,24 @@ namespace Fintranet.Contracts.DataModels
         public void Configure(EntityTypeBuilder<User> modelBuilder)
         {
             modelBuilder.ToTable("User", schema: "dbo");
+
+            modelBuilder.HasData(
+             new User
+             {
+                 Id = 1,
+                 FirstName = "Kamran",
+                 LastName = "Ghamsari",
+                 Username = "kamikg",
+                 Password = "Test1234"
+             },
+             new User
+             {
+                 Id = 2,
+                 FirstName = "Jane",
+                 LastName = "Doe",
+                 Username = "test",
+                 Password = "Test1234"
+             });
         }
     }
 

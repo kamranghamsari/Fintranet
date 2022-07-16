@@ -1,4 +1,6 @@
-﻿using Fintranet.Repositories.Helpers;
+﻿using AutoMapper;
+using Fintranet.Entities.DataTransferObjects;
+using Fintranet.Repositories.Helpers;
 using Fintranet.Repositories.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
@@ -16,11 +18,13 @@ namespace Fintranet.Api3.Helpers
     {
         private readonly RequestDelegate _next;
         private readonly AppSettings _appSettings;
+        private readonly IMapper _mapper;
 
-        public JwtMiddleware(RequestDelegate next, IOptions<AppSettings> appSettings)
+        public JwtMiddleware(RequestDelegate next, IOptions<AppSettings> appSettings, IMapper mapper)
         {
             _next = next;
             _appSettings = appSettings.Value;
+            _mapper = mapper;
         }
 
         public async Task Invoke(HttpContext context, IUserRepository userService)
@@ -53,7 +57,9 @@ namespace Fintranet.Api3.Helpers
                 var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
 
                 // attach user to context on successful jwt validation
-                context.Items["User"] = userService.Get(userId);
+                var user = userService.Get(userId);
+                if (user.data != null)
+                    context.Items["User"] = _mapper.Map<UserDto>(user.data);
             }
             catch
             {

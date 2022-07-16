@@ -1,9 +1,9 @@
 ﻿using Fintranet.Entities.InputModels;
 using Fintranet.Repositories.User;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Fintranet.Api3.Helpers;
 
-namespace Fintranet.Api.Controllers
+namespace Fintranet.Api3.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -17,9 +17,9 @@ namespace Fintranet.Api.Controllers
         }
 
         [HttpPost("authenticate")]
-        public IActionResult Authenticate(AuthenticateRequest model)
+        public async Task<IActionResult> Authenticate(AuthenticateRequest model)
         {
-            var response = _userService.Authenticate(model);
+            var response = await _userService.Authenticate(model);
 
             if (response == null)
                 return BadRequest(new { message = "Username or password is incorrect" });

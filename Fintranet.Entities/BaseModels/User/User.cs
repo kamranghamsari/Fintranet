@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace Fintranet.Entities.BaseModels.User
 {
@@ -12,7 +12,6 @@ namespace Fintranet.Entities.BaseModels.User
         [Required]
         public string Username { get; set; }
 
-        [JsonIgnore]
         [Required]
         public string Password { get; set; }
     }
