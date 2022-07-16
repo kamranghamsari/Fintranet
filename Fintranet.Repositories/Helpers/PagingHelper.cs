@@ -42,13 +42,13 @@ public class PagingHelper<T> : IPagingHelper<T>
         if (pageNumber != 0 && pageSize != 0) query = query.Skip((pageNumber - 1) * pageSize).Take(pageSize);
         return new PagingResult<T>
         {
-            data = query.ToList(),
-            pagingInformation = new PagingInformation
+            Data = query.ToList(),
+            PagingInformation = new PagingInformation
             {
-                totalCount = count,
-                pageSize = pageSize,
-                currentPage = pageNumber,
-                totalPages = (int)Math.Ceiling(count / (double)pageSize)
+                TotalCount = count,
+                PageSize = pageSize,
+                CurrentPage = pageNumber,
+                TotalPages = (int)Math.Ceiling(count / (double)pageSize)
             }
         };
     }
@@ -68,13 +68,13 @@ public class PagingHelper<T> : IPagingHelper<T>
 
         return new PagingResult<T>
         {
-            data = await query.ToListAsync(cancellationToken: cancellationToken),
-            pagingInformation = new PagingInformation
+            Data = await query.ToListAsync(cancellationToken: cancellationToken),
+            PagingInformation = new PagingInformation
             {
-                totalCount = count,
-                pageSize = pageSize,
-                currentPage = pageNumber,
-                totalPages = (int)Math.Ceiling(count / (double)pageSize)
+                TotalCount = count,
+                PageSize = pageSize,
+                CurrentPage = pageNumber,
+                TotalPages = (int)Math.Ceiling(count / (double)pageSize)
             }
         };
     }

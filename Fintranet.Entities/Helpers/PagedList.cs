@@ -33,10 +33,10 @@ namespace Fintranet.Entities.Helpers
         {
             pagingInformation = new PagingInformation
             {
-                totalCount = count,
-                pageSize = pageSize,
-                currentPage = pageNumber,
-                totalPages = (int)Math.Ceiling(count / (double)pageSize)
+                TotalCount = count,
+                PageSize = pageSize,
+                CurrentPage = pageNumber,
+                TotalPages = (int)Math.Ceiling(count / (double)pageSize)
             };
 
             AddRange(items);
@@ -82,12 +82,12 @@ namespace Fintranet.Entities.Helpers
         {
             var metadata = new
             {
-                pagingInformation.totalCount,
-                pagingInformation.pageSize,
-                pagingInformation.currentPage,
-                pagingInformation.totalPages,
-                pagingInformation.hasNext,
-                pagingInformation.hasPrevious
+                pagingInformation.TotalCount,
+                pagingInformation.PageSize,
+                pagingInformation.CurrentPage,
+                pagingInformation.TotalPages,
+                pagingInformation.HasNext,
+                pagingInformation.HasPrevious
             };
             return JsonConvert.SerializeObject(metadata);
         }

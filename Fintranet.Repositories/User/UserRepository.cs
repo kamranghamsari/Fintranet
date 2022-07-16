@@ -33,13 +33,13 @@ namespace Fintranet.Repositories.User
             var users = await GetAsync(x => x.Username == model.Username && x.Password == model.Password);
 
             // return null if user not found
-            if (users == null || users.data == null || users.data.Count == 0) return new BaseResponseDto<AuthenticateResponse>
+            if (users == null || users.Data == null || users.Data.Count == 0) return new BaseResponseDto<AuthenticateResponse>
             {
                 responseCode = ResponseCode.NotFound,
                 responseInformation = "NotFound"
             };
 
-            var user = users.data.SingleOrDefault();
+            var user = users.Data.SingleOrDefault();
             var userDto = _mapper.Map<UserDto>(user);
             // authentication successful so generate jwt token
             var token = generateJwtToken(userDto);
